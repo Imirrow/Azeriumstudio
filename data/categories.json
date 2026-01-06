@@ -1,8 +1,0 @@
-[
-  { "slug": "animes",       "name": "Animes",       "cover": "assets/categorias/categoriaAnime.jpg" },
-  { "slug": "deportes",     "name": "Deportes",     "cover": "assets/categorias/categoriaDeportes.jpg" },
-  { "slug": "musica",       "name": "Música",       "cover": "assets/categorias/categoriaMusica.jpg" },
-  { "slug": "peliculas y series",    "name": "Películas y series",    "cover": "assets/categorias/categoriaPeliculasSeries.jpg" },
-  { "slug": "videojuegos",  "name": "Videojuegos",  "cover": "assets/categorias/categoriaGame.jpg" },
-  { "slug": "comics",       "name": "Cómics",       "cover": "assets/categorias/categoriaComic.jpg" }
-]
