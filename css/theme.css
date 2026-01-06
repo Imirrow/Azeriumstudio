@@ -1,0 +1,1320 @@
+/* ===== Theme tokens (ajústalos y todo tu UI cambia) ===== */
+:root{
+  --bg:#0b1220;
+  --panel:rgba(255,255,255,.05);
+  --border:rgba(255,255,255,.12);
+  --text:#e5e7eb;
+  --muted:#9aa4b2;
+  --accent:#4f46e5;      
+  --accent-700:#4f46e5;
+  --ring:#6366f1;        /* índigo para enfoque */
+  --radius:1rem;         /* 16px */
+  --radius-pill:9999px;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+.modal-content {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Solo se “apaga” la fila de Dirección */
+.is-dimmed { opacity: .6; }
+.is-dimmed input { pointer-events: none; }
+
+
+/* Quitar resplandor rojo del pill del carrito */
+#cartBtn,
+.cart-pill {
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Si el glow venía de pseudo-elementos con gradiente/blur */
+#cartBtn::before,
+#cartBtn::after,
+.cart-pill::before,
+.cart-pill::after {
+  content: none !important;   /* o display:none */
+  box-shadow: none !important;
+  filter: none !important;
+  background: none !important;
+}
+
+
+
+/* ===== Botones ===== */
+.btn{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.625rem 1rem; border-radius:var(--radius);
+  font-weight:600; line-height:1; color:var(--text);
+  border:1px solid transparent; user-select:none;
+  transition:transform .18s ease, box-shadow .18s ease, background-color .2s, border-color .2s, color .2s;
+}
+.btn:focus-visible{ outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--ring) 55%, transparent); }
+
+/* Primario (CTA) */
+.btn--primary{ background:var(--accent); color:#fff; box-shadow:var(--shadow); }
+.btn--primary:hover{ transform:translateY(-1px); background:var(--accent-700); }
+
+/* Secundario (fantasma) */
+.btn--ghost{ background:var(--panel); border-color:var(--border); }
+.btn--ghost:hover{ background:color-mix(in oklab, var(--panel) 60%, white 5%); }
+
+/* Outline */
+.btn--outline{ background:transparent; border-color:var(--border); }
+.btn--outline:hover{ border-color:color-mix(in oklab, var(--border) 60%, white 20%); }
+
+/* Tamaños */
+.btn--sm{ padding:.45rem .75rem; border-radius:.8rem; font-weight:600; }
+.btn--lg{ padding:.8rem 1.15rem; }
+
+/* Formas */
+.btn--pill{ border-radius:var(--radius-pill); }
+.btn--icon{ padding:.5rem; width:2.5rem; height:2.5rem; justify-content:center; }
+
+/* Badge contador (para carrito) */
+.badge{
+  display:grid; place-content:center;
+  min-width:1.25rem; height:1.25rem;
+  padding:0 .25rem; border-radius:var(--radius-pill);
+  font-size:.75rem; font-weight:700; background:#fff; color:var(--accent);
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+}
+
+
+/* ========== A Z E R I U M  –  Cart Drawer ========== */
+.az-cart {
+  --az-bg: rgba(17, 25, 40, 0.82);
+  --az-border: rgba(255,255,255,.08);
+  --az-soft: rgba(255,255,255,.06);
+  --az-text: #e6e9f4;
+  --az-muted: rgba(230,233,244,.65);
+  --az-brand: #6366f1;              /* Indigo */
+  --az-danger: #ef4444;
+  backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, rgba(17,25,40,.88), rgba(17,25,40,.78));
+  color: var(--az-text);
+  border-left: 1px solid var(--az-border);
+  box-shadow: -24px 0 60px rgba(0,0,0,.35);
+}
+
+.az-cart__header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 18px; border-bottom:1px solid var(--az-border);
+}
+.az-cart__title { font-weight: 800; letter-spacing:.2px; }
+.az-close {
+  padding:8px 12px; border-radius:12px; background: var(--az-soft);
+  border:1px solid var(--az-border); color:var(--az-text);
+}
+.az-close:hover { background: rgba(255,255,255,.1); }
+
+.az-cart__items { padding:16px; gap:12px; overflow-y:auto; height:55%; display:flex; flex-direction:column; }
+.az-item {
+  display:flex; gap:12px; padding:12px; border:1px solid var(--az-border);
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border-radius:16px;
+}
+.az-item img { width:56px; height:56px; object-fit:cover; border-radius:12px; border:1px solid var(--az-border); }
+.az-item__title { font-size:.9rem; font-weight:600; }
+.az-item__muted { opacity:.7; font-size:.8rem; }
+.az-qty input { width:48px; text-align:center; background:transparent; border:1px solid var(--az-border); border-radius:10px; color:var(--az-text); }
+.az-pill { padding:2px 8px; border-radius:999px; background: var(--az-soft); border:1px solid var(--az-border); }
+
+.az-card {
+  padding:14px 16px; border-top:1px solid var(--az-border);
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+}
+.az-card + .az-card { border-top:0; border-bottom:1px solid var(--az-border); }
+
+.az-shipping { display:grid; gap:10px; }
+.az-radio {
+  display:flex; gap:10px; align-items:flex-start; padding:10px 12px;
+  border:1px solid var(--az-border); border-radius:14px;
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+  transition: border-color .2s, background .2s;
+}
+.az-radio input { accent-color: var(--az-brand); transform: translateY(2px); }
+.az-radio:hover { border-color: rgba(99,102,241,.45); background: rgba(99,102,241,.06); }
+.az-radio b { color:#fff; }
+.az-confirm { display:flex; align-items:center; gap:8px; margin-left:28px; opacity:.9; font-size:.85rem; }
+
+.az-row { display:flex; justify-content:space-between; gap:12px; font-size:.95rem; padding:6px 0; }
+.az-row--muted { color:var(--az-muted); }
+.az-row--strike del { opacity:.7; }
+
+.az-total { display:flex; justify-content:space-between; align-items:center; padding-top:8px; }
+.az-total__label { font-weight:800; letter-spacing:.2px; }
+.az-total__value { font-size:1.25rem; font-weight:900; color:#fca5a5; } /* rojo suave */
+
+.az-btn {
+  display:block; text-align:center; padding:10px 14px; border-radius:14px;
+  background: var(--az-brand); color:#fff; font-weight:700; border:0;
+}
+.az-btn:hover { filter: brightness(1.1); }
+.az-btn[disabled] { opacity:.5; pointer-events:none; }
+
+@media (min-width: 480px){
+  .az-cart { width: 380px; }
+}
+
+
+
+
+/* Chips y pequeñas etiquetas */
+.chip{ padding:.25rem .5rem; border-radius:var(--radius-pill); background:var(--panel); border:1px solid var(--border); font-size:.8rem; }
+
+/* Tarjetas y “glass” */
+.card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); }
+.glass{ backdrop-filter: blur(8px); background:rgba(2,6,23,.55); border:1px solid rgba(255,255,255,.08); }
+
+/* Animación opcional de “pulse” para CTA */
+@keyframes pulse-soft{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-1px);} }
+.btn--pulse{ animation:pulse-soft 2.5s ease-in-out infinite; }
+
+/* Respeto a accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .btn, .btn--primary{ transition:none; animation:none; }
+}
+/*------------------------------------------------------------*/
+.cart-pill{display:flex;align-items:center;gap:.5rem;padding:.4rem .9rem .4rem .35rem;border-radius:9999px;background:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(244,63,94,.35);}
+.cart-pill:hover{background:var(--accent-700);}
+.badge{display:grid;place-content:center;min-width:1.25rem;height:1.25rem;padding:0 .25rem;border-radius:9999px;font-size:.75rem;font-weight:700;background:#fff;color:var(--accent);box-shadow:0 2px 8px rgba(0,0,0,.25);}
+
+/* Mobile panel */
+#mobileMenu{display:none;} #mobileMenu.open{display:block;}
+
+/* partícula + animación */
+.particle{
+  position:fixed;
+  width:5px; height:5px; border-radius:50%;
+  background:#4f46e5; pointer-events:none; z-index:50;
+  animation:floatAndFade .8s linear forwards;
+}
+@keyframes floatAndFade{
+  0%   { transform: translateY(0)    scale(1);  opacity:.8; }
+  100% { transform: translateY(-20px) scale(.3); opacity:0; }
+}
+/* accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .particle{ animation:none; opacity:0; }
+}
+
+.glitch-flicker{
+  color:#4f46e5 !important;
+  text-shadow:0 0 5px #4f46e5, 0 0 10px #4f46e5, 0 0 20px #4f46e5;
+  animation:flickerGlow 3s infinite;
+}
+@keyframes flickerGlow{
+  0%{opacity:1;text-shadow:0 0 10px #4f46e5;}
+  8%{opacity:.4;text-shadow:none;}
+  15%{opacity:1;text-shadow:0 0 12px #4f46e5;}
+  25%{opacity:.6;text-shadow:none;}
+  40%{opacity:1;text-shadow:0 0 15px #4f46e5;}
+  60%{opacity:.3;text-shadow:none;}
+  75%{opacity:.9;text-shadow:0 0 20px #4f46e5;}
+  90%{opacity:.5;text-shadow:none;}
+  100%{opacity:1;text-shadow:0 0 10px #4f46e5;}
+}
+
+/* Pega esto en tu theme.css */
+.sale--hidden { transform: translateY(-100%); }
+
+#mobileMenu{ display:none; }
+#mobileMenu.open{ display:block; }
+
+/* Buscador con botón circular rojo */
+.search-input{
+  padding-right: 48px;             /* espacio para el botón */
+  border-radius: 9999px;           /* pill */
+  color: #e5e7eb;
+}
+.search-input::placeholder{ color: #aeb6c2; }
+
+.search-btn{
+  position: absolute;
+  right: 6px; top: 50%; transform: translateY(-50%);
+  width: 34px; height: 34px;
+  display: grid; place-content: center;
+  border-radius: 9999px;
+  background: var(--accent, #6366f1);   /* rojo */
+  box-shadow: #6366f1;
+  border: 1px solid rgba(255,255,255,.15);
+  transition: transform .15s ease, background-color .15s ease;
+}
+.search-btn:hover{ transform: translateY(-50%) scale(1.04); background: var(--accent-700,#6366f1); }
+.search-btn:active{ transform: translateY(-50%) scale(.98); }
+
+/* Que la sale bar no bloquee clics del header */
+#saleBar { pointer-events: none; }
+
+/* Menú móvil controlado por body.menu-open */
+#mobileMenu{
+  display:none;
+  position:fixed; left:0; right:0;
+  top:calc(var(--header-top,0px) + 72px); /* debajo del header */
+  z-index:110; background:rgba(2,6,23,.92);
+  border-top:1px solid rgba(255,255,255,.1);
+}
+body.menu-open #mobileMenu{ display:block; }
+
+/* Ajustes de tamaño en pantallas pequeñas */
+@media (max-width: 767px){
+  .search-input{
+    height: 44px; padding-right: 48px; /* espacio para el botón */
+  }
+  .search-btn{
+    width: 36px; height: 36px; right: 8px;
+  }
+  .cart-pill{
+    padding: .35rem .7rem .35rem .35rem;
+  }
+}
+
+/* (Opcional) que la sale bar sea roja en móvil como tu referencia */
+@media (max-width: 767px){
+  #saleBar{ background: #4f46e5; }
+}
+
+
+
+/*----------------------------------------------------------SLIDER HERO-----------------------------------------------------------------------
+
+/* Contenedor “boxed” centrado */
+.hero.hero--boxed{
+  --hero-max: 1200px;
+  max-width: var(--hero-max);
+  margin-inline: auto;
+  padding-inline: 16px;            /* respiro lateral */
+  position: relative;
+}
+
+/* Frame del slide: altura fija por relación (evita reflows) */
+.hero__frame{
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--hero-ratio, 1920 / 720); /* relación desktop */
+  overflow: hidden;                 /* evita scroll/jitters en transiciones */
+  border-radius: 14px;              /* opcional, por estética */
+}
+
+/* Pista y slides (slider horizontal) */
+.hero__track{
+  display: flex;
+  height: 100%;
+  will-change: transform;
+  transition: transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.hero__slide{
+  flex: 0 0 100%;
+  height: 100%;
+  position: relative; /* para posicionar media/CTA dentro */
+}
+
+/* Media: SIEMPRE ocupar el frame (sin huecos ni cambios de alto) */
+.hero__media{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;      /* quita hueco baseline */
+  line-height: 0;
+}
+.hero__media img{
+  width: 100%; height: 100%;
+  display: block;      /* quita hueco baseline del <img> */
+  object-fit: cover;
+  object-position: center 50%;
+}
+
+/* CTA centrado horizontal y con buen offset inferior */
+.hero__cta{
+  position: absolute; left: 50%; transform: translateX(-50%);
+  z-index: 6;
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .75rem 1rem; border-radius: 9999px;
+  background:#4f46e5; color:#fff; font-weight:700;
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+  transition: background-color .15s ease, transform .15s ease;
+
+  /* en móviles: 40–80px aprox, respetando safe-area */
+  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(40px, 8svh, 80px));
+}
+.hero__cta:hover{ background:#6366f1; }
+.hero__cta-ico{ width: 1rem; height: 1rem; }
+
+/* desde tablet/desktop bajamos a tu valor “normal” */
+@media (min-width: 768px){
+  .hero__cta{
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+  }
+}
+
+/* Flechas centradas verticalmente, pegadas al borde del frame */
+.hero__arrow{
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 7;
+  width: 44px; height: 44px; display: grid; place-items: center;
+  border-radius: 9999px; cursor: pointer;
+  background: rgba(0,0,0,.55); color: #fff;
+  border: 1px solid rgba(255,255,255,.15);
+  transition: transform .15s ease, background-color .15s ease;
+}
+.hero__arrow:hover{ background: rgba(0,0,0,.72); }
+.hero__prev{ left: 12px; }
+.hero__next{ right: 12px; }
+
+/* Dots centrados en la parte baja del frame */
+.hero__dots{
+  position: absolute; left: 50%; transform: translateX(-50%);
+  /* un poquito por encima del borde, con safe-area */
+  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(10px, 2.2vw, 22px));
+  z-index: 8; display: flex; gap: .5rem;
+}
+.hero__dots button{
+  width: 8px; height: 8px; border-radius: 9999px;
+  background: rgba(255,255,255,.45); border: none; cursor: pointer;
+  transition: transform .15s ease, background-color .15s ease;
+}
+.hero__dots button.is-active{
+  transform: scale(1.25);
+  background: #fff;
+}
+
+/* Ratios por breakpoint:
+   Asegúrate de exportar TODAS las artes del mismo breakpoint con la MISMA proporción */
+@media (max-width: 1199px){
+  .hero__frame{ aspect-ratio: var(--hero-ratio-md, 1440 / 620); } /* ajusta a tu arte tablet */
+}
+@media (max-width: 768px){
+  .hero.hero--boxed{ padding-inline: 12px; }
+  .hero__frame{ aspect-ratio: var(--hero-ratio-sm, 1080 / 650); } /* ajusta a tu arte móvil */
+}
+
+
+/* Sube el botón en tablet/desktop */
+@media (min-width: 768px){
+  .hero__cta{
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 36px); /* antes: 20px */
+  }
+}
+
+/* ===== Fine-tune CTA en mobile ===== */
+
+/* Teléfonos pequeños (≤480px): más cerca del borde inferior */
+@media (max-width: 480px){
+  .hero__cta{
+    /* antes era ~60–110px; lo bajamos */
+    bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(22px, 5svh, 34px));
+  }
+  /* baja también un pelín los puntos para mantener aire */
+  .hero__dots{
+    bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(6px, 1.8svh, 12px));
+  }
+}
+
+/* Phablets / móviles grandes (481–768px): un punto intermedio */
+@media (min-width: 481px) and (max-width: 768px){
+  .hero__cta{
+    bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(34px, 7svh, 56px));
+  }
+}
+
+/* Tablet/desktop (≥768px): mantenemos el valor “normal” */
+@media (min-width: 768px){
+  .hero__cta{
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 36px);
+  }
+}
+
+
+
+
+
+
+/* =========================================================
+   RECIÉN LLEGADOS (Home Row)
+   - Compatible con el JS del carrusel que usa:
+     .home-row__viewport  (scrollX)
+     .home-row__track     (grid columnas)
+     .row-arrow --prev/--next
+     .row-card  (thumb, meta, price-wrap, price, buy-btn)
+========================================================= */
+
+
+/* ===== Recién llegados (Home Row) ===== */
+
+/* Contenedor principal */
+.home-row{
+  max-width:1550px;
+  margin:32px auto;
+  padding:0 16px;
+}
+
+/* Encabezado */
+.home-row__head{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem; margin-bottom:16px;
+}
+.home-row__head h2{ font-size:1.5rem; font-weight:900; }
+.home-row__all{
+  font-weight:600; padding:.5rem .9rem; border-radius:9999px;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16);
+}
+.home-row__all:hover{ background:rgba(255,255,255,.14); }
+
+/* Wrapper y viewport (el viewport ES el que scrollea) */
+.home-row__wrap{ position:relative; }
+
+.home-row__viewport{
+  overflow-x:auto; overflow-y:hidden;
+  scroll-behavior:smooth;
+  border-radius:var(--radius,16px);
+  -ms-overflow-style:none;              /* IE/Edge */
+  scrollbar-width:none;                 /* Firefox */
+}
+.home-row__viewport::-webkit-scrollbar{ display:none; } /* WebKit */
+
+/* Track en columnas (auto-flow) */
+.home-row__track{
+  display:grid;
+  width: 280px;
+  grid-auto-flow:column;
+  grid-auto-columns:minmax(260px,1fr);
+  gap:18px;
+  padding:8px;
+}
+
+/* ----- Card ----- */
+.row-card{
+  position:relative; list-style:none;
+  border-radius:16px; overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 10px 28px rgba(0,0,0,.35);
+}
+.row-card .thumb{ display:block; }
+.row-card .thumb img{
+  display:block; width:100%; height:280px; object-fit:cover !important;
+  transition:transform .25s ease;
+  
+}
+.row-card:hover .thumb img{ transform:scale(1.03); }
+
+/* Badge ¡NUEVO! siempre arriba */
+.row-card .chip{
+  position:absolute; top:10px; left:10px; z-index:5;
+  padding:.25rem .55rem; border-radius:9999px;
+  background:#0ea5e9; color:#fff; font-size:.72rem; font-weight:800;
+  box-shadow:0 6px 16px rgba(0,0,0,.25);
+  pointer-events:none;
+}
+
+/* Meta */
+.row-card .meta{
+  padding:.85rem .95rem 1.05rem;
+  border-top:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.04));
+}
+.row-card .title{
+  font-weight:700; line-height:1.25;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  overflow:hidden; min-height:2.4em;
+}
+
+/* Barra: precio (izq) + botón (der) */
+.row-card .bar{
+  margin-top:.6rem;
+  display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+}
+.row-card .price{ font-weight:800; color:#fff; }
+.row-card .price b{ font-weight:800; color:#fff; }
+
+/* Botón “Añadir” */
+.row-card .add-btn{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.5rem .9rem; border-radius:9999px;
+  background:#4f46e5; color:#fff; font-weight:700;
+  border:1px solid rgba(255,255,255,.12);
+  transition:filter .15s ease, transform .15s ease;
+}
+.row-card .add-btn:hover{ filter:brightness(1.06); transform:translateY(-1px); }
+.row-card .add-btn:active{ transform:translateY(0); }
+.row-card .add-btn svg{ width:16px; height:16px; }
+
+/* ----- Flechas prev/next ----- */
+/* Soporta .row-arrow--prev/--next o .home-row__prev/__next (usa cualquiera) */
+.row-arrow,
+.home-row__prev,
+.home-row__next{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:44px; height:44px; border-radius:9999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.55); color:#fff;
+  display:grid; place-items:center; z-index:6; cursor:pointer;
+  transition:background-color .15s ease, transform .15s ease, opacity .15s ease;
+  backdrop-filter:blur(4px);
+}
+.row-arrow:hover,
+.home-row__prev:hover,
+.home-row__next:hover{ background:rgba(0,0,0,.7); }
+.row-arrow[disabled],
+.home-row__prev[disabled],
+.home-row__next[disabled]{ opacity:.35; cursor:not-allowed; }
+
+.row-arrow--prev, .home-row__prev{ left:-12px; }
+.row-arrow--next, .home-row__next{ right:-12px; }
+
+/* ----- Responsive ----- */
+@media (max-width:768px){
+  .home-row__track{ grid-auto-columns:minmax(230px,80vw); gap:14px; }
+  .row-card .thumb img{ height:190px; }
+  .row-arrow--prev, .home-row__prev{ left:6px; }
+  .row-arrow--next, .home-row__next{ right:6px; }
+  .row-arrow, .home-row__prev, .home-row__next{ width:38px; height:38px; }
+}
+
+@media (max-width:420px){
+  .home-row__track{ grid-auto-columns:minmax(210px,86vw); }
+  .row-card .thumb img{ height:170px; }
+}
+
+/* ===== Tamaño de las cards (knobs) ===== */
+.home-row{
+  /* Ajusta estos dos valores hasta que tu mockup se vea perfecto */
+  --card-w: 360px;     /* ancho mínimo de cada card en el carrusel */
+  --thumb-h: 280px;    /* alto de la imagen */
+}
+
+/* El carrusel asigna una “columna” por card usando el ancho elegido */
+.home-row__track{
+  grid-auto-columns: minmax(var(--card-w), 1fr);
+}
+
+/* Altura de la imagen dentro de la card */
+.row-card .thumb img{
+  height: var(--thumb-h);
+  object-fit: cover;      /* usa 'contain' si no quieres recorte */
+}
+
+/* Opcional: si tu mockup debe verse completo sin recorte, agrega la clase .contain */
+.row-card.contain .thumb img{
+  object-fit: contain;
+  background: rgba(255,255,255,.03);
+}
+
+/* Un poco más de “presencia” visual */
+.row-card .meta{
+  padding: 1rem 1rem 1.1rem;
+  border-radius: 0 0 18px 18px;
+}
+.row-card{
+  border-radius: 18px;
+}
+
+/* Responsive: no aplastes demasiado la card en móvil */
+@media (max-width: 1024px){
+  .home-row{ --card-w: 320px; --thumb-h: 240px; }
+}
+@media (max-width: 640px){
+  .home-row{ --card-w: 280px; --thumb-h: 210px; }
+}
+
+ /* Imagen principal con aire y sin recorte */
+  #pImg { object-fit: contain; background: rgba(0,0,0,.35); }
+
+  /* Miniaturas */
+  #pThumbs .pThumb{
+    width: 100%; height: 5rem; border-radius: 0.75rem; overflow: hidden;
+    border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);
+  }
+  #pThumbs .pThumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  #pThumbs .pThumb.is-active{ outline: 2px solid #4f46e5; outline-offset: 2px; }
+
+  /* Miniaturas horizontales */
+#pThumbsRow .t{
+  width:120px; height:120px; border-radius:12px; overflow:hidden;
+  border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03);
+  cursor:pointer; transition:transform .12s ease, filter .12s ease;
+}
+#pThumbsRow .t:hover{ transform:translateY(-1px); filter:brightness(1.06); }
+#pThumbsRow .t img{ width:100%; height:100%; object-fit:cover; display:block; }
+#pThumbsRow .t[data-active="1"]{ outline:2px solid #4f46e5; outline-offset:0; }
+
+/* Miniaturas grandes y centradas */
+#pThumbsRow .t{
+  width:110px;                 /* tamaño base (más grande) */
+  overflow:hidden;
+  background:rgba(255,255,255,.03);
+  cursor:pointer;
+  transition:transform .12s ease, filter .12s ease, box-shadow .12s ease;
+}
+#pThumbsRow .t:hover{ transform:translateY(-1px); filter:brightness(1.06); }
+#pThumbsRow .t img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Activa/seleccionada */
+#pThumbsRow .t[data-active="1"]{
+  box-shadow:0 0 0 3px #4f46e5 inset;
+}
+
+/* Centrado y respiración */
+#pGalleryRow{ row-gap:14px; }
+#pThumbsRow{ row-gap:14px; }
+
+/* Responsivo: ajusta el tamaño según pantalla */
+@media (min-width:1024px){
+  #pThumbsRow .t{ width:120px; border-radius:16px; }
+}
+@media (max-width:640px){
+  #pThumbsRow .t{ width:90px; border-radius:12px; }
+}
+
+/* Mostrar la imagen completa */
+.row-card .thumb{
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(255,255,255,.03); /* leve fondo para el marco */
+}
+
+.row-card .thumb img{
+  width: 100%;
+  height: 80%;
+  object-fit: cover;   /* ← clave */
+  padding: 6px;          /* marco */
+}
+
+/*------------------------------------------------------------POR CATEGORIA-------------------------------*/
+
+/* ====== Por Categoría (slider) ====== */
+.cat-row{
+  max-width:1550px; margin:32px auto; padding:0 16px;
+}
+.cat-row__head{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  margin-bottom:16px;
+}
+.cat-row__head h2{ font-size:1.5rem; font-weight:700; }
+.cat-row__all{
+  font-weight:600; padding:.55rem 1rem; border-radius:9999px;
+  background:#4f46e5; color:#fff; border:1px solid rgba(255,255,255,.12);
+  transition:filter .15s ease, transform .15s ease;
+}
+.cat-row__all:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+
+/* Viewport + track */
+.cat-row__wrap{ position:relative; }
+.cat-row__viewport{
+  overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth;
+  -ms-overflow-style:none; scrollbar-width:none; border-radius:16px;
+}
+.cat-row__viewport::-webkit-scrollbar{ display:none; }
+.cat-row__track{
+  display:grid; grid-auto-flow:column; gap:22px;
+  grid-auto-columns:minmax(280px, 1fr);
+  padding:6px 6px 12px;
+}
+
+/* Card */
+.cat-card{
+  list-style:none; position:relative; border-radius:18px; overflow:hidden;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 10px 28px rgba(0,0,0,.35);
+}
+
+
+
+.cat-card .cat-link{ display:block; position:relative; }
+.cat-card img{
+  width:100%; height:240px; object-fit:cover; display:block;
+  transition:transform .28s ease;
+}
+@media (min-width:1024px){ .cat-card img{ height:280px; } }
+
+/* Overlay con título + CTA */
+.cat-card .cat-overlay{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  justify-content:flex-end; padding:67px;
+  background:linear-gradient(180deg, rgba(0,0,0,.05) 25%, rgba(0,0,0,.6) 90%);
+}
+.cat-card h3{
+  font-size:1.35rem; font-weight:800; margin:0 0 .6rem 0;
+  text-shadow:0 2px 10px rgba(0,0,0,.35);
+}
+.cat-card .cta{
+  align-self:flex-start;
+  background:#4f46e5; color:#fff; font-weight:800; font-size:.95rem;
+  border-radius:9999px; padding:.5rem .9rem; border:1px solid rgba(255,255,255,.15);
+  transform:translateY(10px); opacity:0; transition:all .22s ease;
+}
+.cat-card:hover img{ transform:scale(1.03); }
+.cat-card:hover .cta{ opacity:1; transform:translateY(0); }
+
+/* Flechas */
+.cat-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:2; width:42px; height:42px; border-radius:9999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.55); color:#fff; display:grid; place-items:center;
+  cursor:pointer; transition:background-color .15s ease, transform .15s ease;
+}
+.cat-arrow:hover{ background:rgba(0,0,0,.72); }
+.cat-arrow[disabled]{ opacity:.35; cursor:not-allowed; }
+.cat-arrow--prev{ left:-12px; }
+.cat-arrow--next{ right:-12px; }
+
+@media (max-width:720px){
+  .cat-row__track{ grid-auto-columns: minmax(240px, 80vw); }
+  .cat-arrow--prev{ left:-6px; }
+  .cat-arrow--next{ right:-6px; }
+}
+
+
+/*===============================================================================================
+PERSONALIZADOS
+===============================================================================================*/
+
+
+
+.reveal {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity .5s ease, transform .5s ease;
+}
+
+
+  /* Nunca permitir scroll horizontal de toda la página */
+  html, body {
+    max-width: 100%;
+    overflow-x: clip;               /* moderno y sin reflow extra */
+  }
+  @supports not (overflow-x: clip) {
+    html, body { overflow-x: hidden; } /* fallback (iOS viejos) */
+  }
+
+  /* Corta cualquier “empujón” lateral que venga de sliders / secciones */
+  #customSlider, #stepsRow, #csRoot, #stepsViewport {
+    overflow-x: clip;
+  }
+
+  /* En móvil deja que el overlay del custom slider salga en Y, no en X */
+  @media (max-width: 768px) {
+    #csRoot { overflow-x: clip; overflow-y: visible; }
+  }
+
+/* ----------------------------------------------RESEÑAS-------------------------------*/
+/* Reviews – estilo Azerium */
+#reviews{
+  background-color: #0A1224;
+}
+
+/* Viewport del carrusel: recorta fuera y da aire para el hover */
+.reviews-viewport{
+  position: relative;
+  overflow: hidden;
+  padding-block: 12px; /* evita el “corte” superior/inferior al levantar el card */
+}
+
+/* Pista (el gap debe coincidir con el JS) */
+.reviews-track{
+  gap: 24px;
+}
+
+/* Tarjeta */
+.reviews-card{
+  flex: 0 0 auto; /* el ancho lo fija el JS */
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+  overflow: hidden; /* recorta el zoom interno de la imagen */
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.reviews-card:hover{
+  transform: translateY(-6px);
+  border-color: rgba(59,130,246,.35);
+  box-shadow: 0 10px 30px rgba(59,130,246,.12);
+}
+
+/* Marco + imagen (zoom solo en la imagen) */
+.reviews-photo{
+  aspect-ratio: 4/5;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.reviews-photo img{
+  position: absolute;
+  object-fit: cover;
+  border-radius: 8px;
+  transform-origin: center center;
+  transition: transform .35s ease;
+}
+.reviews-card:hover .reviews-photo img{
+  transform: scale(1.03); /* zoom suave sin alterar el layout */
+}
+
+/* Botones de navegación encima de todo */
+.nav-btn{
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(0,0,0,.45);
+  border: 1px solid rgba(255,255,255,.15);
+  transition: background .2s ease, transform .2s ease;
+  z-index: 30; /* por encima de cards y fades */
+}
+.nav-btn:hover{
+  background: rgba(3, 174, 253, 0.65);
+  
+}
+
+/* Detalles */
+.badge-verified{
+  font-size: 10px;
+  line-height: 1;
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: rgba(34,197,94,.15);
+  color: #86efac;
+  border: 1px solid rgba(34,197,94,.35);
+}
+.star{ color:#FACC15; }
+
+/* NOTA:
+   Ya no definimos aquí el ancho por breakpoint (1/2/3/4 por vista).
+   Eso lo maneja reseñas.js calculando el ancho exacto de cada card
+   según el width del viewport y el gap (24px).
+*/
+
+/* Botón base */
+.btn-review {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.15);
+  color: #fff;
+  background: rgba(255,255,255,.03);
+  transition: color .3s ease, background .3s ease;
+  overflow: hidden;
+}
+
+#starsControl .starBtn{
+    font-size: 22px;
+    line-height: 1;
+    color: #FACC15; /* amarillo */
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  #starsControl .starBtn:hover{ transform: scale(1.15); opacity: 1; }
+  #starsControl .starBtn.active{ opacity: 1; }
+
+.cat-card{
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 1.25rem;               /* rounded-2xl */
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(2,6,23,.55);         /* glass */
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(2,6,23,.25);
+  height: 11rem;                         /* h-44 */
+}
+@media (min-width: 640px){ .cat-card{ height: 14rem; } } /* sm:h-56 */
+@media (min-width: 768px){ .cat-card{ height: 16rem; } } /* md:h-64 */
+
+.cat-media{
+  width: 100%; height: 100%;
+  transition: transform .5s ease, filter .5s ease;
+  filter: saturate(1) brightness(.95);
+}
+.cat-card:hover .cat-media{
+  transform: scale(1.07);
+  filter: saturate(1.1) brightness(1);
+}
+
+/* Overlay y título centrado */
+.cat-overlay{
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(2,6,23,.55) 100%);
+  transition: opacity .35s ease;
+}
+.cat-title{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  color:#fff; font-weight:700; letter-spacing:.02em;
+  text-shadow: 0 2px 14px rgba(0,0,0,.35);
+  padding:.4rem .8rem; border-radius:.75rem;
+  background: rgba(2,6,23,.55);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+/* Brillo metálico sutil al hover */
+.cat-card::after{
+  content:""; position:absolute; inset:-20%;
+  background: conic-gradient(from 210deg, rgba(56,189,248,.0), rgba(56,189,248,.18), rgba(56,189,248,.0) 35%);
+  transform: translateX(-60%) rotate(8deg);
+  opacity: 0; pointer-events:none; filter: blur(12px);
+  transition: transform .6s ease, opacity .6s ease;
+}
+.cat-card:hover::after{
+  transform: translateX(20%) rotate(0deg);
+  opacity: .9;
+}
+
+/* Accesibilidad al foco */
+.cat-card:focus-visible{
+  outline: 2px solid #4f46e5; outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(34,211,238,.25);
+}
+
+
+
+/*=================================================================================================*/
+                                        /*VISTA SHOP STYLE*/
+/*=================================================================================================*/
+/* ====== Shop: tarjeta “papel” ====== */
+.product-card{
+  border-radius: 16px;
+  background: radial-gradient(120% 120% at 10% 10%, rgba(255,255,255,.08), rgba(255,255,255,.04) 60%) ,
+              linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,0) 40%);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+  overflow: hidden;
+}
+.product-card__img{
+  width: 100%; height: 260px; object-fit: fill; display: block;
+  background: #111827; /* por si tarda */
+}
+@media (min-width: 768px){ .product-card__img{ height: 320px; } }
+
+/* Badge de descuento */
+.sale-badge{
+  position: absolute; top: 10px; left: 10px;
+  font-size: .72rem; font-weight: 800; color: #fff;
+  background: #ef4444; padding: .25rem .5rem; border-radius: 9999px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+}
+
+/* Texto de oferta / precio */
+.price-line{ margin-top: .35rem; font-weight: 700; }
+.price-line del{ opacity: .6; margin-right: .25rem; }
+
+/* ====== Facetas ====== */
+/* Chips para temáticas (botones) */
+.facet-chip{
+  display:inline-flex; align-items:center; gap:.25rem;
+  padding:.35rem .6rem; border-radius: 9999px;
+  background: var(--panel); border: 1px solid var(--border);
+  font-size: .85rem; cursor: pointer; user-select: none;
+}
+.facet-chip[data-on="1"]{
+  background: color-mix(in oklab, var(--accent) 26%, black 75%);
+  border-color: color-mix(in oklab, var(--accent) 65%, white 15%);
+}
+
+/* Ítems con contador (categorías y piezas) */
+.facet-row{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+.facet-row .count{
+  font-size: .75rem; padding: 2px 8px; border-radius: 9999px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  color: #cbd5e1;
+}
+
+/* ====== Drawer de filtros (mobile) ====== */
+@media (max-width: 767px){
+  #filtersPanel{
+    position: fixed; top: 0; bottom: 0; left: 0;
+    width: 88vw; max-width: 340px; z-index: 60;
+    transform: translateX(-100%); transition: transform .25s ease;
+    border-right: 1px solid var(--border);
+    overflow-y: auto; padding-bottom: 4rem;
+  }
+  #filtersPanel.open{ transform: translateX(0); }
+  #filtersBackdrop.show{ display:block; }
+}
+
+/* ===== Drawer de filtros (mobile) — versión final ===== */
+@media (max-width: 767px){
+  #filtersPanel{
+    position: fixed;
+    inset: 0 auto 0 0;            /* top:0; right:auto; bottom:0; left:0 */
+    width: 88vw;
+    max-width: 360px;
+    height: 100dvh;               /* alto real de viewport */
+    z-index: 80;                  /* por encima de header (z-50) y saleBar (z-10) */
+    transform: translateX(-104%); /* escondido */
+    transition: transform .25s ease;
+    background: #0b1220;          /* sólido, sin transparencia */
+    border-right: 1px solid var(--border);
+    box-shadow: 12px 0 30px rgba(0,0,0,.45);
+    overflow-y: auto;
+    padding-bottom: 4rem;
+  }
+  #filtersPanel.open{ transform: translateX(0); }
+
+  #filtersBackdrop{
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 70;                  /* debajo del drawer, encima del contenido */
+  }
+  #filtersBackdrop.hidden{ display:none; }
+  #filtersBackdrop.show{ display:block; }
+
+  /* Cabecera del drawer */
+  .drawer-head{
+    position: sticky; top: 0;
+    background: #0b1220;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    z-index: 1;
+  }
+
+  /* Evitar que el fondo haga scroll cuando el drawer está abierto */
+  body.noscroll{
+    overflow: hidden;
+    touch-action: none;
+  }
+}
+
+/* Pills de contador más compactos (como tu mock) */
+.facet-row .count{
+  font-size: .72rem;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.14);
+  color: #cbd5e1;
+}
+
+
+
+/* --- Quick View (lupita) --- */
+.product-thumb { position: relative; }
+.qv-btn{
+  position:absolute; top:10px; right:10px;
+  display:grid; place-content:center;
+  width:38px; height:38px; border-radius:10px;
+  background: rgba(0,0,0,.70);
+  border: 1px solid rgba(255,255,255,.18);
+  color:#fff;
+  opacity:0; transform: translateY(-4px);
+  transition: opacity .18s ease, transform .18s ease, background-color .18s ease;
+  z-index: 5;
+}
+.product-thumb:hover .qv-btn{ opacity:1; transform: translateY(0); }
+.qv-btn:hover{ background: rgba(0,0,0,.85); }
+.qv-btn:focus-visible{ outline:2px solid var(--ring); outline-offset:2px; }
+
+/* Etiqueta de oferta del mock */
+.sale-badge{
+  position:absolute; top:10px; left:10px;
+  padding:.25rem .55rem; border-radius:9999px;
+  background:#ef4444; color:#fff; font-weight:800; font-size:.76rem;
+  box-shadow:0 6px 16px rgba(0,0,0,.25);
+  z-index:5;
+}
+
+/* Imagen de la card en shop */
+.product-card__img{ width:100%; height:260px; object-fit:cover; display:block; border-radius:12px; }
+@media (min-width:768px){ .product-card__img{ height:300px; } }
+
+
+/*********************************************CHEKOUT STYLE*************************************************/
+
+
+/* Velocidad editable con la variable --marq-speed */
+#promoBar{ --marq-speed: 22s; }
+
+/* Pistas */
+.marq-track{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  white-space:nowrap;
+  padding-inline:24px;
+  animation: marq var(--marq-speed) linear infinite;
+}
+.marq-item{ display:inline-flex; align-items:center; gap:8px; }
+.marq-sep{ opacity:.6; padding-inline:8px; }
+
+/* Loop continuo: la segunda pista arranca justo después */
+.marq-track + .marq-track{ position:absolute; inset:0 auto 0 100%; }
+
+/* Animación */
+@keyframes marq{
+  from{ transform: translateX(0); }
+  to{   transform: translateX(-100%); }
+}
+
+/* Accesibilidad: respeta reduce-motion */
+@media (prefers-reduced-motion: reduce){
+  .marq-track{ animation: none !important; }
+}
+
+/* UX opcional: pausa al poner el cursor sobre la barra */
+#promoBar:hover .marq-track{ animation-play-state: paused; }
+
+/* ===== PromoBar Marquee: móvil first ===== */
+#promoBar{ --marq-speed: 22s; }
+
+/* Contenedor del marquee */
+.marq-wrap{ position:relative; overflow:hidden; }
+
+/* Cada pista */
+.marq-track{
+  display:inline-flex;
+  align-items:center;
+  gap:16px;                 /* móvil: gap pequeño */
+  white-space:nowrap;
+  padding-inline:16px;      /* móvil: padding pequeño */
+  flex:0 0 auto;            /* no se estira */
+  min-width:100%;           /* SIEMPRE ocupa al menos el ancho del viewport */
+  will-change: transform;
+  animation: marq var(--marq-speed) linear infinite;
+}
+
+/* La pista duplicada empieza justo después de la 1ª */
+.marq-track + .marq-track{
+  position:absolute;
+  top:0; left:100%;
+}
+
+/* Ítems y separadores */
+.marq-item{ display:inline-flex; align-items:center; gap:8px; }
+.marq-sep{ opacity:.6; padding-inline:8px; }
+
+/* Desktop: más aire */
+@media (min-width:640px){
+  .marq-track{ gap:24px; padding-inline:24px; }
+}
+
+/* Accesibilidad y UX */
+@media (prefers-reduced-motion: reduce){ .marq-track{ animation:none !important; } }
+#promoBar:hover .marq-track{ animation-play-state: paused; }
+
+@keyframes marq{ from{transform:translateX(0)} to{transform:translateX(-100%)} }
+
+
+/* Animación suave del contenido al abrir/cerrar */
+details > div {
+  transition: grid-template-rows .28s ease, opacity .28s ease, transform .28s ease;
+}
+details[open] > div { opacity: 1; transform: translateY(0); }
+details:not([open]) > div { opacity: 0; transform: translateY(-4px); }
+
+/*/Truco: contenedor colapsable (si quieres aún más suave, descomenta)*/
+details > div { display: grid; grid-template-rows: 0fr; }
+details[open] > div { grid-template-rows: 1fr; }
+details > div > * { overflow: hidden; }
+
+/* Cambia color del título al hover del summary */
+#checkoutFAQ details summary:hover h3 {
+  color: #4f46e5;
+}
+/* (Opcional) Cambia color del icono al hover */
+#checkoutFAQ details summary:hover svg {
+  stroke: #4f46e5;
+}
+/* Accesible: también al enfocarse con teclado */
+#checkoutFAQ details summary:focus-visible h3 {
+  color: #4f46e5;
+}
+
+/* Transición suave (opcional) */
+#checkoutFAQ details summary h3,
+#checkoutFAQ details summary svg {
+  transition: color .2s ease, stroke .2s ease;
+}
+
+/* Hover: ya lo tenías */
+#checkoutFAQ details summary:hover h3 { color: #4f46e5; }
+#checkoutFAQ details summary:hover svg { stroke: #4f46e5; }
+
+/* ACTIVO (abierto): mantener el color */
+#checkoutFAQ details[open] summary h3 { color: #4f46e5; }
+#checkoutFAQ details[open] summary svg { stroke: #4f46e5; }
+
+/* Accesible: también al enfocarse con teclado */
+#checkoutFAQ details summary:focus-visible h3 { color: #4f46e5; }
+#checkoutFAQ details summary:focus-visible svg { stroke: #4f46e5; }
+
+
+/*================================CARD BAGED=================================================*/
+
+.benefits-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px 20px;
+  border-radius: 12px;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 calc(50% - 20px);
+    padding: 10px 0;
+    cursor: default;
+
+    img {
+      width: 34px;
+      height: 34px;
+    }
+
+    p {
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    &:hover p {
+      color: #4f46e5;
+    }
+  }
+
+  /* Desktop: todo en una fila */
+  @media (min-width: 768px) {
+    flex-wrap: nowrap;
+
+    .benefit-item {
+      flex: initial;
+      position: relative;
+      padding-right: 20px;
+
+      /* Línea divisoria derecha */
+      &::after {
+        content: '';
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 28px;
+        background: rgba(255,255,255,0.15);
+      }
+
+      &:last-child::after {
+        display: none;
+      }
+    }
+  }
+}
+
+
+[data-acc-panel] {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+}
+[data-acc-panel].hidden {
+  max-height: 0;
+  opacity: 0;
+}
+[data-acc-panel]:not(.hidden) {
+  max-height: 1000px; /* lo suficientemente grande */
+  opacity: 1;
+}
+
+

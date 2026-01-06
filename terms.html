@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azerium Posters — Tienda de cuadros</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@700&display=swap"
+    rel="stylesheet">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230a2540'/><text x='50%' y='58%' font-size='48' fill='white' text-anchor='middle' font-family='Arial'>AS</text></svg>">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-slate-950 text-slate-100 selection:bg-indigo-500/40">
+  <canvas id="stars" class="fixed top-0 left-0 -z-10 pointer-events-none"></canvas>
+  <!-- Sale bar
+  <div id="saleBar" class="fixed inset-x-0 top-0 z-[10] bg-indigo-600 text-white text-sm text-center py-2
+            transition-transform duration-300">
+    💥 Maniac Sale: <strong>25% DCTO</strong> — termina en <span id="saleTimer">00:00:00</span>
+  </div>-->
+
+  <header class="w-full fixed z-50 bg-transparent text-white backdrop-blur-md mb-5"
+    style="top: var(--header-top, 0px);">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center gap-3">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center text-white text-xl">
+        <span class="font-[Orbitron] font-[700]">Azerium</span>
+        <span class="font-[Orbitron] text-cyan-400 glitch-flicker ml-1 font-[700]">Studio.</span>
+      </a>
+
+      <!-- Menú escritorio (solo ≥1174px) -->
+      <nav class="hidden min-[1174px]:flex ml-20 gap-7" role="navigation" aria-label="Principal">
+        <a href="index.html" class="space-link">Inicio</a>
+        <a href="shop.html#catalogo" class="space-link">Catálogo</a>
+        <a href="personaliza.html" class="space-link">Personalizado</a>
+        <a href="faqs.html" class="space-link">FAQs</a>
+      </nav>
+
+      <div class="flex-1"></div>
+
+      <!-- Derecha: Redes + Buscador + Carrito (solo ≥1174px) -->
+      <div class="hidden min-[1174px]:flex items-center gap-3">
+        <!-- Redes -->
+        <div class="flex items-center gap-3 pr-1">
+          <a href="https://www.facebook.com/profile.php?id=61583185078629" target="_blank" class="space-link"
+            aria-label="Facebook">
+            <i data-lucide="facebook" class="w-5 h-5 text-white icon-glow"></i>
+          </a>
+          <a href="https://www.tiktok.com/@azerium_studio?_r=1&_t=ZS-923ovbeIn37" class="space-link" aria-label="TikTok"
+            class="p-2 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/[.04]">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M13 3h3a5 5 0 0 0 5 5v3a8 8 0 0 1-5-2v6a7 7 0 1 1-7-7a7 7 0 0 1 4 1V6a3 3 0 0 1 0-.5V3M8 14a3 3 0 1 0 3 3v-6a3 3 0 0 0-3 3" />
+            </svg>
+          </a>
+          <a href="https://instagram.com" target="_blank" class="space-link" aria-label="Instagram">
+            <i data-lucide="instagram" class="w-5 h-5 text-white icon-glow"></i>
+          </a>
+        </div>
+
+        <!-- Buscador -->
+        <div class="relative">
+          <input id="qSearch"
+            class="search-input px-4 py-2 rounded-full bg-slate-800/70 border border-white/10 w-72 min-[1174px]:w-80 outline-none "
+            placeholder="Buscar productos">
+          <button id="qGo" class="search-btn" aria-label="Buscar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="white"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Carrito -->
+        <a id="cartBtn" href="#" class="relative cart-pill  " aria-label="Abrir carrito">
+          <span class="grid place-content-center w-8 h-8 rounded-full bg-black/60">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-white"
+              aria-hidden="true">
+              <path
+                d="M2.25 3a.75.75 0 000 1.5h1.386c.2 0 .375.132.431.324l2.323 8.132a2.25 2.25 0 002.162 1.644h6.995a2.25 2.25 0 002.162-1.644l1.615-5.65A.75.75 0 0018.6 6H6.59l-.53-1.857A2.25 2.25 0 003.636 2.25H2.25z" />
+              <path d="M8.25 21a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17.25 21a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+            </svg>
+          </span>
+          <span id="cartTotal" class="font-semibold text-white">S/ 0</span>
+          <span id="cartBadge" class="badge absolute -top-2 -right-2">0</span>
+          <span id="cartCount" class="hidden">0</span>
+        </a>
+      </div>
+
+      <!-- Mobile: menú + carrito (solo <1174px) -->
+      <button id="navToggle" class="hidden max-[1173px]:grid place-content-center w-10 h-10 rounded-full bg-white/10"
+        aria-label="Abrir menú">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+
+      <a id="cartBtn" href="#" class="hidden max-[1173px]:inline-flex relative cart-pill" aria-label="Abrir carrito">
+        <span id="cartTotal">S/ 0</span>
+        <span id="cartBadge" class="badge absolute -top-2 -right-2">0</span>
+        <span id="cartCount" class="hidden">0</span>
+      </a>
+    </div>
+
+    <!-- Panel móvil (oculto, y PERMANENTEMENTE oculto en desktop) -->
+    <div id="mobileMenu" class="hidden max-[1173px]:block min-[1174px]:hidden bg-slate-900/90 border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-6 py-4 space-y-3">
+        <a href="index.html" class="block space-link">Inicio</a>
+        <a href="shop.html#catalogo" class="block space-link">Catálogo</a>
+        <a href="personaliza.html" class="block space-link">Personalizado</a>
+        <a href="faqs.html" class="block space-link">FAQs</a>
+
+        <input id="qSearchMobile"
+          class="mt-2 w-full px-3 py-2 rounded-xl bg-slate-900/80 border border-white/10 outline-none"
+          placeholder="Buscar...">
+
+        <div class="flex gap-3 pt-2">
+          <!-- Redes -->
+          <div class="flex items-center gap-3 pr-1">
+            <a href="https://www.facebook.com/profile.php?id=61583185078629" target="_blank" class="space-link"
+              aria-label="Facebook">
+              <i data-lucide="facebook" class="w-5 h-5 text-white icon-glow"></i>
+            </a>
+            <a href="https://www.tiktok.com/@azerium_studio?_r=1&_t=ZS-923ovbeIn37" class="space-link"
+              aria-label="TikTok"
+              class="p-2 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/[.04]">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M13 3h3a5 5 0 0 0 5 5v3a8 8 0 0 1-5-2v6a7 7 0 1 1-7-7a7 7 0 0 1 4 1V6a3 3 0 0 1 0-.5V3M8 14a3 3 0 1 0 3 3v-6a3 3 0 0 0-3 3" />
+              </svg>
+            </a>
+            <a href="https://instagram.com" target="_blank" class="space-link" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-5 h-5 text-white icon-glow"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Fondo general -->
+    <div
+      class="min-h-screen w-full bg-gradient-to-b from-slate-900 via-slate-950 to-black py-16 px-6 flex justify-center">
+
+      <!-- Contenedor tipo tarjeta -->
+      <article
+        class="max-w-4xl w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-8 md:p-12 text-white/90 leading-relaxed">
+
+        <!-- Header -->
+        <header class="text-center mb-10">
+          <h1 class="text-4xl font-extrabold text-white drop-shadow-lg">Términos y Condiciones</h1>
+          <p class="text-sm opacity-70 mt-2">Última actualización: Enero 2025</p>
+          <div class="mt-4 w-20 mx-auto border-b border-purple-400/60"></div>
+        </header>
+
+        <!-- Contenido -->
+        <div class="space-y-10 text-[15px]">
+
+          <!-- Section -->
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">1. Aceptación de los términos</h2>
+            <p class="opacity-80">
+              Al acceder y realizar compras en <b>Azerium Studio</b>, aceptas los presentes Términos y Condiciones.
+              Si no estás de acuerdo con alguna sección, evita utilizar el sitio o realizar pedidos.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">2. Sobre nuestros productos</h2>
+            <p class="opacity-80">
+              Azerium Studio comercializa cuadros en <b>HD Glass</b>, diseños impresos en alta resolución, piezas
+              personalizadas
+              y productos hechos a mano en Perú. Debido al proceso de fabricación, pueden existir ligeras variaciones en
+              color o acabado.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">3. Información del cliente</h2>
+            <p class="opacity-80">
+              Para procesar pedidos solicitamos: nombre completo, dirección, teléfono, email, comprobante de pago y (si
+              aplica)
+              imágenes para personalización. El cliente afirma que la información brindada es real y actualizada.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">4. Personalización de productos</h2>
+            <ul class="list-disc ml-6 opacity-80 space-y-1">
+              <li>Debe enviarse una imagen en buena resolución.</li>
+              <li>Pueden aplicarse ajustes para optimizar el resultado final.</li>
+              <li>El cliente debe aprobar el diseño previo a la impresión (cuando aplique).</li>
+              <li>No se reproducirán obras protegidas sin autorización.</li>
+              <li>Las imágenes se usarán únicamente para producir el pedido.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">5. Precios y métodos de pago</h2>
+            <p class="opacity-80">Métodos aceptados:</p>
+            <ul class="list-disc ml-6 opacity-80 space-y-1 mt-2">
+              <li>Yape</li>
+              <li>Plin</li>
+              <li>Transferencias o depósitos bancarios</li>
+            </ul>
+            <p class="opacity-80 mt-2">
+              Los precios están en soles (S/). El pago debe realizarse antes de iniciar producción o envío.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">6. Pedidos y confirmación</h2>
+            <ul class="list-disc ml-6 opacity-80 space-y-1">
+              <li>Envío del comprobante de pago.</li>
+              <li>Validación de imagen (si corresponde).</li>
+              <li>Confirmación de disponibilidad.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">7. Producción y tiempos</h2>
+            <ul class="list-disc ml-6 opacity-80 space-y-1">
+              <li>Catálogo: 1–2 días hábiles.</li>
+              <li>Personalizados: 2–4 días hábiles.</li>
+            </ul>
+            <p class="opacity-80 mt-2">Los tiempos pueden extenderse en temporadas de alta demanda.</p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">8. Envíos</h2>
+            <ul class="list-disc ml-6 opacity-80 space-y-1">
+              <li>Lima Metropolitana: 1–2 días hábiles.</li>
+              <li>Provincias: 2–5 días hábiles mediante courier.</li>
+            </ul>
+            <p class="opacity-80 mt-2">
+              El cliente es responsable de la exactitud de su dirección. En caso de error, se reprogramará el envío con
+              costo adicional.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">9. Garantías y devoluciones</h2>
+
+            <h3 class="font-semibold text-white mt-3">9.1 Producto dañado en transporte</h3>
+            <p class="opacity-80">Debe reportarse dentro de las <b>24 horas</b> con foto o video. Se enviará reposición
+              sin costo.</p>
+
+            <h3 class="font-semibold text-white mt-3">9.2 Error en diseño o impresión</h3>
+            <p class="opacity-80">Si el error es del taller, se rehace sin costo adicional.</p>
+
+            <h3 class="font-semibold text-white mt-3">9.3 Devoluciones</h3>
+            <p class="opacity-80"><b>No se aceptan devoluciones ni reembolsos</b> en productos personalizados o hechos a
+              pedido.</p>
+
+            <h3 class="font-semibold text-white mt-3">9.4 Daños por mal uso</h3>
+            <p class="opacity-80">No aplica garantía si el daño ocurre por caídas, humedad o manipulación indebida.</p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">10. Cancelaciones</h2>
+            <p class="opacity-80">
+              Solo puede cancelarse un pedido si aún no ha iniciado producción.
+              Una vez impreso o montado, no es posible cancelarlo.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">11. Uso del sitio web</h2>
+            <p class="opacity-80">
+              El usuario se compromete a no copiar diseños, fotos ni contenido de Azerium Studio sin autorización.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">12. Propiedad intelectual</h2>
+            <p class="opacity-80">
+              Todo el contenido del sitio (fotos, productos, logotipos, diseños) es propiedad de Azerium Studio y está
+              protegido por ley.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">13. Protección de datos</h2>
+            <p class="opacity-80">
+              La información personal será tratada bajo nuestra
+              <a href="privacy.html" class="text-purple-300 hover:text-purple-200 underline">Política de Privacidad</a>.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">14. Modificaciones</h2>
+            <p class="opacity-80">Azerium Studio puede actualizar estos términos sin previo aviso.</p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-semibold text-white mb-3">15. Contacto</h2>
+            <p class="opacity-80">
+              📧 <b>azeriumstudio@gmail.com</b><br>
+              📍 Lima – Perú
+            </p>
+          </section>
+
+        </div>
+      </article>
+    </div>
+  </main>
+
+
+
+
+
+  <!-- FOOTER -->
+<footer class="mt-20 border-t border-white/10 bg-[#0B1326] text-white/80">
+
+  <!-- Trust badges -->
+  <section class="benefits-line flex flex-wrap justify-center gap-6 py-6">
+    <div class="benefit-item text-xl font-extrabold text-white-700 group-hover:text-indigo-700 transition-colors flex flex-col items-center gap-2">
+      <img src="assets/categorias/satisfaccion.png" alt="">
+      <p>Satisfacción Garantizada</p>
+    </div>
+
+    <div class="benefit-item text-xl font-extrabold text-white-700 group-hover:text-indigo-700 transition-colors flex flex-col items-center gap-2">
+      <img src="assets/categorias/epicos.png" alt="">
+      <p>Cuadros Épicos</p>
+    </div>
+
+    <div class="benefit-item text-xl font-extrabold text-white-700 group-hover:text-indigo-700 transition-colors flex flex-col items-center gap-2" onclick="window.open('https://www.shalom.com.pe', '_blank')">
+      <img src="assets/categorias/entrega.png" alt="">
+      <p>Envíos a Todo el Perú</p>
+    </div>
+
+    <div class="benefit-item text-xl font-extrabold text-white-700 group-hover:text-indigo-700 transition-colors flex flex-col items-center gap-2">
+      <img src="assets/categorias/tarjeta.png" alt="">
+      <p>Compra Fácil y Segura</p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-6 py-12 lg:py-16">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+
+      <!-- Brand -->
+      <div class="flex flex-col items-center text-center sm:items-start sm:text-left">
+        <a href="/" class="inline-flex items-center gap-2">
+          <span class="font-[Orbitron] text-white font-[700]">Azerium</span>
+          <span class="font-[Orbitron] text-cyan-400 glitch-flicker ml-1 font-[700]">Studio.</span>
+        </a>
+        <p class="mt-3 text-sm text-white/60 leading-relaxed max-w-xs">
+          Cuadros en aluminio HD-Gloss con colores vibrantes, nítidos y listos para colgar. Hecho en Perú.
+        </p>
+
+        <!-- Social -->
+        <div class="mt-5 flex items-center gap-3 justify-center sm:justify-start">
+          <a href="https://www.facebook.com/profile.php?id=61583185078629" aria-label="Facebook"
+            class="p-2 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/[.04]">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M17 2H14a5 5 0 0 0-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@azerium_studio?_r=1&_t=ZS-923ovbeIn37" aria-label="TikTok"
+            class="p-2 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/[.04]">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M13 3h3a5 5 0 0 0 5 5v3a8 8 0 0 1-5-2v6a7 7 0 1 1-7-7a7 7 0 0 1 4 1V6a3 3 0 0 1 0-.5V3M8 14a3 3 0 1 0 3 3v-6a3 3 0 0 0-3 3" />
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram"
+            class="p-2 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/[.04]">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm11 2a1 1 0 1 1-1 1a1 1 0 0 1 1-1M12 7a5 5 0 1 1-5 5a5 5 0 0 1 5-5m0 2a3 3 0 1 0 3 3a3 3 0 0 0-3-3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ENLACES -->
+      <div class="sm:text-left text-center">
+        <button
+          class="w-full sm:cursor-default flex items-center justify-between gap-2 text-white font-semibold py-2 sm:py-0"
+          data-acc-btn aria-expanded="false">
+          <span class="mx-auto sm:mx-0">Enlaces</span>
+          <svg class="sm:hidden acc-chevron h-4 w-4 opacity-80 transition-transform" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M5.23 7.21a.75.75 0 011.06.02L10 11.18l3.71-3.95a.75.75 0 111.08 1.04l-4.25 4.52a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <ul class="mt-3 space-y-2 text-sm" data-acc-panel>
+          <li><a href="index.html" class="hover:text-white">Inicio</a></li>
+          <li><a href="#newRow" class="hover:text-white">Recien Llegados</a></li>
+          <li><a href="#catRow" class="hover:text-white">Categorias</a></li>
+          <li><a href="personaliza.html" class="hover:text-white">Personalizar</a></li>
+          <li><a href="#reviews" class="hover:text-white">Reseñas</a></li>
+          <li><a href="#contact" class="hover:text-white">Contacto</a></li>
+          <li><a href="shop.html" class="hover:text-white">Catálogo</a></li>
+          <li><a href="faqs.html" class="hover:text-white">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+
+      <!-- CATEGORÍAS -->
+      <div class="sm:text-left text-center">
+        <button
+          class="w-full sm:cursor-default flex items-center justify-between gap-2 text-white font-semibold py-2 sm:py-0"
+          data-acc-btn aria-expanded="false">
+          <span class="mx-auto sm:mx-0">Categorías</span>
+          <svg class="sm:hidden acc-chevron h-4 w-4 opacity-80 transition-transform" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M5.23 7.21a.75.75 0 011.06.02L10 11.18l3.71-3.95a.75.75 0 111.08 1.04l-4.25 4.52a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <ul class="mt-3 space-y-2 text-sm" data-acc-panel>
+          <li><a href="shop.html" class="hover:text-white">Anime</a></li>
+          <li><a href="shop.html" class="hover:text-white">Deportes</a></li>
+          <li><a href="shop.html" class="hover:text-white">Musica</a></li>
+          <li><a href="shop.html" class="hover:text-white">Peliculas y Series</a></li>
+          <li><a href="shop.html" class="hover:text-white">Video Juegos</a></li>
+          <li><a href="shop.html" class="hover:text-white">Comics</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTACTO -->
+      <div class="sm:text-left text-center">
+        <button
+          class="w-full sm:cursor-default flex items-center justify-between gap-2 text-white font-semibold py-2 sm:py-0"
+          data-acc-btn aria-expanded="false">
+          <span class="mx-auto sm:mx-0">Contacto</span>
+          <svg class="sm:hidden acc-chevron h-4 w-4 opacity-80 transition-transform" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M5.23 7.21a.75.75 0 011.06.02L10 11.18l3.71-3.95a.75.75 0 111.08 1.04l-4.25 4.52a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+
+       <ul class="mt-3 space-y-2 text-sm" data-acc-panel>
+          <li class="flex items-center gap-2 justify-center sm:justify-start">
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.05-.24a11.36 11.36 0 0 0 3.56.57a1 1 0 0 1 1 1v3.61a1 1 0 0 1-1 1A17 17 0 0 1 3 5a1 1 0 0 1 1-1h3.61a1 1 0 0 1 1 1a11.36 11.36 0 0 0 .57 3.56a1 1 0 0 1-.24 1.05z" />
+            </svg>
+            <a href="https://wa.me/51932724113" target="_blank" class="hover:text-white">WhatsApp: +51 992 863 934</a>
+          </li>
+          <li class="flex items-center gap-2 justify-center sm:justify-start">
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 4l-8 5l-8-5V6l8 5l8-5Z" />
+            </svg>
+            <a href="mailto:Azerium.studio@gmail.com" class="hover:text-white">Azerium.studio@gmail.com</a>
+          </li>
+          <li class="flex items-center gap-2 justify-center sm:justify-start">
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8m0 10a2 2 0 1 1 0-4a2 2 0 0 1 0 4" />
+            </svg>
+            <span>Lima, Perú</span>
+          </li>
+          <li>
+            <a href="personaliza.html"
+              class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-white/10 bg-white/[.03] hover:bg-az-400/20 mx-auto sm:mx-0">
+              Personalizar ahora
+              <svg width="16" height="16" viewBox="0 0 24 24" class="opacity-80">
+                <path fill="currentColor" d="M14 3l-1.41 1.41L18.17 10H4v2h14.17l-5.58 5.59L14 19l8-8z" />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-white/50">© <span id="year"></span> Azerium Studio. Todos los derechos reservados.</p>
+      <div class="text-xs text-white/50 flex items-center gap-4">
+        <a href="terms.html" class="hover:text-white">Términos</a> 
+        <span class="opacity-30">•</span> 
+        <a href="privacy.html" class="hover:text-white">Privacidad</a> 
+        <span class="opacity-30">•</span> 
+        <span>Hecho con ❤ en Perú</span>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+  <script src="js/productsData.js"></script>
+  <script src="js/searchHome.js"></script>
+  <script src="js/stars.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/heroSlider.js"></script>
+  <script src="js/salebarcalcule.js"></script>
+  <script src="js/particulasMenu.js"></script>
+  <script>
+    // Enlaza a los links del header (desktop y móvil)
+    Particulas.attach('header .space-link', {
+      color: '#38bdf8', // cambia color si quieres
+      hover: 8,         // cantidad en hover
+      click: 14,        // cantidad al click
+      duration: 0.9     // velocidad (segundos)
+    });
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.lucide && lucide.createIcons) { lucide.createIcons(); }
+      var t = document.getElementById('navToggle');
+      var m = document.getElementById('mobileMenu');
+      if (t && m) { t.addEventListener('click', () => m.classList.toggle('open')); }
+    });
+  </script>
+  <script src="js/proteger.js"></script>
+</body>
+
+</html>
